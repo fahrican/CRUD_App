@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -141,6 +142,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     ItemTouchHelper.LEFT -> {
                         //show alert dialog
                         Log.v("onSwiped", "ItemTouchHelper.LEFT ")
+                        val dialog = setUpAlertDialog()
+                        dialog.show()
                     }
                     ItemTouchHelper.RIGHT -> {
                         Log.v("onSwiped", "ItemTouchHelper.RIGHT ")
@@ -206,6 +209,23 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         binding.fabPostProduct.setOnClickListener {
             Toast.makeText(this, "Create new product", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun setUpAlertDialog(): AlertDialog {
+        return AlertDialog.Builder(this@MainActivity)
+            .setTitle("Delete Product")
+            .setMessage("Do wou really want to delete this item?")
+            .setIcon(R.drawable.ic_delete)
+            .setPositiveButton("Yes") { _, _ ->
+                Toast.makeText(
+                    this@MainActivity,
+                    "Item DELETE request",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .setNegativeButton("No") { _, _ ->
+                viewModel.fetchProducts()
+            }.create()
     }
 
 }
