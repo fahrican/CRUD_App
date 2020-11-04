@@ -147,9 +147,15 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     }
                     ItemTouchHelper.RIGHT -> {
                         Log.v("onSwiped", "ItemTouchHelper.RIGHT ")
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Item PATCH request",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                     else -> return
                 }
+                productAdapter.notifyItemChanged(viewHolder.adapterPosition);
             }
 
             override fun onChildDraw(
@@ -224,7 +230,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                 ).show()
             }
             .setNegativeButton("No") { _, _ ->
-                viewModel.fetchProducts()
             }.create()
     }
 
