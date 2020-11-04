@@ -51,7 +51,7 @@
             tools:visibility="visible" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/imgFour"
+            android:id="@+id/fab_post_product"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
