@@ -1,15 +1,21 @@
 package de.example.crudapp.view.ui
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Canvas
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.example.crudapp.R
 import de.example.crudapp.databinding.ActivityMainBinding
 import de.example.crudapp.view.adapter.ProductAdapter
 import de.example.crudapp.viewmodel.ProductViewModel
+import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
 
 
 class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
@@ -30,6 +36,9 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         setUpRecyclerView()
 
         observeLiveData()
+
+        val itemTouchHelper = ItemTouchHelper(setUpSimpleCallback())
+        itemTouchHelper.attachToRecyclerView(binding.recyclerView)
     }
 
     override fun onRefresh() {
@@ -109,6 +118,83 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                 } else {
                     disableViewsOnError()
                 }
+            }
+        }
+    }
+
+    private fun setUpSimpleCallback(): ItemTouchHelper.SimpleCallback {
+        return object : ItemTouchHelper.SimpleCallback(
+            0,
+            ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+        ) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                when (direction) {
+                    ItemTouchHelper.LEFT -> {
+                        //show alert dialog
+                        Log.v("onSwiped", "ItemTouchHelper.LEFT ")
+                    }
+                    ItemTouchHelper.RIGHT -> {
+                        Log.v("onSwiped", "ItemTouchHelper.RIGHT ")
+                    }
+                    else -> return
+                }
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+
+                RecyclerViewSwipeDecorator.Builder(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
+                    .addSwipeLeftBackgroundColor(
+                        ContextCompat.getColor(
+                            this@MainActivity,
+                            R.color.swipeDelete
+                        )
+                    )
+                    .addSwipeLeftActionIcon(R.drawable.ic_delete)
+                    .setSwipeLeftLabelColor(R.color.labelColor)
+                    .addSwipeLeftLabel("Delete Product")
+                    .addSwipeRightBackgroundColor(
+                        ContextCompat.getColor(
+                            this@MainActivity,
+                            R.color.swipeEdit
+                        )
+                    )
+                    .addSwipeRightActionIcon(R.drawable.ic_edit)
+                    .setSwipeRightLabelColor(R.color.labelColor)
+                    .addSwipeRightLabel("Edit Product")
+                    .create()
+                    .decorate()
+
+                super.onChildDraw(
+                    c,
+                    recyclerView,
+                    viewHolder,
+                    dX,
+                    dY,
+                    actionState,
+                    isCurrentlyActive
+                )
             }
         }
     }
