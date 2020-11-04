@@ -4,6 +4,7 @@ import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -36,6 +37,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         setUpRecyclerView()
 
         observeLiveData()
+
+        createNewProduct()
 
         val itemTouchHelper = ItemTouchHelper(setUpSimpleCallback())
         itemTouchHelper.attachToRecyclerView(binding.recyclerView)
@@ -196,6 +199,12 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     isCurrentlyActive
                 )
             }
+        }
+    }
+
+    private fun createNewProduct() {
+        binding.fabPostProduct.setOnClickListener {
+            Toast.makeText(this, "Create new product", Toast.LENGTH_SHORT).show()
         }
     }
 
