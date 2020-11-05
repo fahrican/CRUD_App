@@ -1,5 +1,6 @@
 package de.example.crudapp.view.ui
 
+import android.content.Intent
 import android.graphics.Canvas
 import android.os.Bundle
 import android.util.Log
@@ -213,7 +214,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
 
     private fun createNewProduct() {
         binding.fabPostProduct.setOnClickListener {
-            Toast.makeText(this, "Create new product", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, ProductActivity::class.java)
+            startActivity(intent)
         }
     }
 
