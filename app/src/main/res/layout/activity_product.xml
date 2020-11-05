@@ -89,4 +89,14 @@
         app:layout_constraintBaseline_toBaselineOf="@id/p_qty"
         app:layout_constraintStart_toEndOf="@id/p_qty" />
 
+    <Button
+        android:id="@+id/btn_post_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="post"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/p_qty" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
