@@ -23,13 +23,14 @@ class ProductActivity : AppCompatActivity() {
     }
 
     fun createProduct(v: View) {
-        val product = Product(
+        /*val product = Product(
             null,
             binding.pDescriptionInput.toString(),
             binding.pNameInput.toString(),
             binding.pPriceInput.toString().toDouble(),
             binding.pQtyInput.toString().toInt()
-        )
+        )*/
+        val product = Product(null, "a", "a", 1.2, 1)
         viewModel.createProduct(product)
     }
 

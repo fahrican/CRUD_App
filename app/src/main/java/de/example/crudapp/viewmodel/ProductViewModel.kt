@@ -9,6 +9,9 @@ import de.example.crudapp.di.DaggerAppComponent
 import de.example.crudapp.model.Product
 import de.example.crudapp.repository.ProductRepository
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import javax.inject.Inject
 
 class ProductViewModel : ViewModel() {
@@ -48,16 +51,22 @@ class ProductViewModel : ViewModel() {
 
     fun createProduct(product: Product) {
         viewModelScope.launch {
-            _isInProgress.postValue(true)
-            val post = runCatching { repository.createProduct(product) }
-            post.onSuccess {
-                if (it.id != null) {
-                    Log.d("createProduct:", "$it")
+            val post: Call<Product> = repository.createProduct(product)
+            post.enqueue(object : Callback<Product> {
+
+                override fun onResponse(call: Call<Product>, response: Response<Product>) {
+                    Log.d("createProduct:", "${response.code()}")
+                    if (response.isSuccessful) {
+                        Log.d("createProduct:", "${response.body()}")
+                    }
                 }
-            }.onFailure {
-                Log.d("createProduct:", "${it.message}")
-            }
-            _isInProgress.postValue(false)
+
+                override fun onFailure(call: Call<Product>, t: Throwable) {
+                    Log.e("createProduct:", "${t.message}")
+                }
+
+            })
+
         }
     }
 
