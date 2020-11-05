@@ -1,5 +1,6 @@
 package de.example.crudapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,6 +41,21 @@ class ProductViewModel : ViewModel() {
                 _products.value = it.products
             }.onFailure {
                 _exceptionText.value = it.message
+            }
+            _isInProgress.postValue(false)
+        }
+    }
+
+    fun createProduct(product: Product) {
+        viewModelScope.launch {
+            _isInProgress.postValue(true)
+            val post = runCatching { repository.createProduct(product) }
+            post.onSuccess {
+                if (it.id != null) {
+                    Log.d("createProduct:", "$it")
+                }
+            }.onFailure {
+                Log.d("createProduct:", "${it.message}")
             }
             _isInProgress.postValue(false)
         }

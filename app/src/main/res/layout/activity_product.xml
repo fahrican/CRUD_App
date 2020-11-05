@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:id="@+id/p_name_input"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -40,6 +41,7 @@
         app:layout_constraintTop_toBottomOf="@id/p_name" />
 
     <EditText
+        android:id="@+id/p_description_input"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -61,6 +63,7 @@
         app:layout_constraintTop_toBottomOf="@id/p_description" />
 
     <EditText
+        android:id="@+id/p_price_input"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -81,6 +84,7 @@
         app:layout_constraintTop_toBottomOf="@id/p_price" />
 
     <EditText
+        android:id="@+id/p_qty_input"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -96,6 +100,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:text="post"
+        android:onClick="createProduct"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/p_qty" />
 
