@@ -30,8 +30,7 @@ class ProductActivity : AppCompatActivity() {
             binding.pPriceInput.toString().toDouble(),
             binding.pQtyInput.toString().toInt()
         )*/
-        val product = Product(null, "a", "a", 1.2, 1)
-        viewModel.createProduct(product)
+        viewModel.createProduct("a", "a", 1.2f, 1)
     }
 
 }

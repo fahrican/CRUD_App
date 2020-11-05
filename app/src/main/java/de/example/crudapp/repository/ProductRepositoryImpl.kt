@@ -24,4 +24,13 @@ class ProductRepositoryImpl : ProductRepository {
         return flaskApi.createProduct(product)
     }
 
+    override suspend fun createProduct(
+        name: String,
+        description: String,
+        price: Float,
+        qty: Int
+    ): Call<Product> {
+        return flaskApi.createProduct(name, description, price, qty)
+    }
+
 }
