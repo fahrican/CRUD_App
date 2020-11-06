@@ -11,9 +11,6 @@ interface FlaskProductRestApi {
     @GET("products")
     suspend fun getProducts(): ProductsResponse
 
-    @POST("product")
-    suspend fun createProduct(@Body product: Product): Call<Product>
-
     @FormUrlEncoded
     @POST("product")
     suspend fun postProduct(
