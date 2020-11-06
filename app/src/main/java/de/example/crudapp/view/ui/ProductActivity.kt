@@ -30,7 +30,7 @@ class ProductActivity : AppCompatActivity() {
             binding.pPriceInput.toString().toDouble(),
             binding.pQtyInput.toString().toInt()
         )*/
-        viewModel.createProduct("a", "a", 1.2f, 1)
+        viewModel.createProduct("a", "a", 4.99, 1)
     }
 
 }

@@ -19,7 +19,7 @@ interface FlaskProductRestApi {
     suspend fun postProduct(
         @Field("name") name: String,
         @Field("description") description: String,
-        @Field("price") price: Float,
+        @Field("price") price: Double,
         @Field("qty") qty: Int
     ): Response<Product>
 

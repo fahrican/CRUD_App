@@ -10,9 +10,6 @@ import de.example.crudapp.model.Product
 import de.example.crudapp.repository.ProductRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import javax.inject.Inject
 
 class ProductViewModel : ViewModel() {
@@ -50,26 +47,7 @@ class ProductViewModel : ViewModel() {
         }
     }
 
-    /* fun createProduct(product: Product) {
-         viewModelScope.launch {
-             val post: Call<Product> = repository.createProduct(product)
-             post.enqueue(object : Callback<Product> {
-
-                 override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                     Log.d("createProduct:", "${response.code()}")
-                     if (response.isSuccessful) {
-                         Log.d("createProduct:", "${response.body()}")
-                     }
-                 }
-
-                 override fun onFailure(call: Call<Product>, t: Throwable) {
-                     Log.e("createProduct:", "${t.message}")
-                 }
-             })
-         }
-     }*/
-
-    fun createProduct(name: String, description: String, price: Float, qty: Int) {
+    fun createProduct(name: String, description: String, price: Double, qty: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = runCatching { repository.createProduct(name, description, price, qty) }
             result.onSuccess {
