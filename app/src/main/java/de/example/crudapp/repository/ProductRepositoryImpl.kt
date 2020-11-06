@@ -5,6 +5,7 @@ import de.example.crudapp.di.DaggerAppComponent
 import de.example.crudapp.model.Product
 import de.example.crudapp.model.ProductsResponse
 import retrofit2.Call
+import retrofit2.Response
 import javax.inject.Inject
 
 class ProductRepositoryImpl : ProductRepository {
@@ -29,8 +30,8 @@ class ProductRepositoryImpl : ProductRepository {
         description: String,
         price: Float,
         qty: Int
-    ): Call<Product> {
-        return flaskApi.createProduct(name, description, price, qty)
+    ): Response<Product>{
+        return flaskApi.postProduct(name, description, price, qty)
     }
 
 }

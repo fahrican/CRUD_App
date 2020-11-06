@@ -3,6 +3,7 @@ package de.example.crudapp.data.networking
 import de.example.crudapp.model.Product
 import de.example.crudapp.model.ProductsResponse
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 
 interface FlaskProductRestApi {
@@ -15,11 +16,11 @@ interface FlaskProductRestApi {
 
     @FormUrlEncoded
     @POST("product")
-    suspend fun createProduct(
+    suspend fun postProduct(
         @Field("name") name: String,
         @Field("description") description: String,
         @Field("price") price: Float,
         @Field("qty") qty: Int
-    ): Call<Product>
+    ): Response<Product>
 
 }

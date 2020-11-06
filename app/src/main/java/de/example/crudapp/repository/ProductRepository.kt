@@ -3,7 +3,7 @@ package de.example.crudapp.repository
 import de.example.crudapp.model.Product
 import de.example.crudapp.model.ProductsResponse
 import retrofit2.Call
-import retrofit2.http.Field
+import retrofit2.Response
 
 interface ProductRepository {
 
@@ -16,6 +16,6 @@ interface ProductRepository {
         description: String,
         price: Float,
         qty: Int
-    ): Call<Product>
+    ): Response<Product>
 
 }

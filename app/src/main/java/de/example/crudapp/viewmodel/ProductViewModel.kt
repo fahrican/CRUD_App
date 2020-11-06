@@ -71,20 +71,13 @@ class ProductViewModel : ViewModel() {
 
     fun createProduct(name: String, description: String, price: Float, qty: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val post: Call<Product> = repository.createProduct(name, description, price, qty)
-            post.enqueue(object : Callback<Product> {
-
-                override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                    Log.d("createProduct:", "${response.code()}")
-                    if (response.isSuccessful) {
-                        Log.d("createProduct:", "${response.body()}")
-                    }
-                }
-
-                override fun onFailure(call: Call<Product>, t: Throwable) {
-                    Log.e("createProduct:", "${t.message}")
-                }
-            })
+            val result = runCatching { repository.createProduct(name, description, price, qty) }
+            result.onSuccess {
+                Log.d("createProduct code", "${it.code()}")
+                Log.d("createProduct", "${it.body()?.name}")
+            }.onFailure {
+                Log.d("createProduct error", "${result.isFailure}")
+            }
         }
     }
 
