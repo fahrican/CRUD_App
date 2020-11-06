@@ -4,7 +4,6 @@ import de.example.crudapp.data.networking.FlaskProductRestApi
 import de.example.crudapp.di.DaggerAppComponent
 import de.example.crudapp.model.Product
 import de.example.crudapp.model.ProductsResponse
-import retrofit2.Call
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -19,10 +18,6 @@ class ProductRepositoryImpl : ProductRepository {
 
     override suspend fun fetchProducts(): ProductsResponse {
         return flaskApi.getProducts()
-    }
-
-    override suspend fun createProduct(product: Product): Call<Product> {
-        return flaskApi.createProduct(product)
     }
 
     override suspend fun createProduct(

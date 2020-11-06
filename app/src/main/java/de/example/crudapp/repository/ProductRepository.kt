@@ -9,8 +9,6 @@ interface ProductRepository {
 
     suspend fun fetchProducts(): ProductsResponse
 
-    suspend fun createProduct(product: Product): Call<Product>
-
     suspend fun createProduct(
         name: String,
         description: String,
