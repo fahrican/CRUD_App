@@ -54,7 +54,7 @@ class ProductViewModel : ViewModel() {
                 Log.d("createProduct code", "${it.code()}")
                 Log.d("createProduct", "${it.body()?.name}")
             }.onFailure {
-                Log.d("createProduct error", "${result.isFailure}")
+                Log.e("createProduct error", "${result.isFailure}")
             }
         }
     }
@@ -66,7 +66,7 @@ class ProductViewModel : ViewModel() {
                 Log.d("deleteProduct code", "${it.code()}")
                 Log.d("deleteProduct", "${it.body()}")
             }.onFailure {
-                Log.d("deleteProduct error", "${result.isFailure}")
+                Log.e("deleteProduct error", "${result.isFailure}")
             }
         }
     }
