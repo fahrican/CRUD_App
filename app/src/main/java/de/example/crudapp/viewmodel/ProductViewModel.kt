@@ -62,12 +62,8 @@ class ProductViewModel : ViewModel() {
     fun deleteProduct(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = runCatching { repository.deleteProduct(id) }
-            result.onSuccess {
-                Log.d("deleteProduct code", "${it.code()}")
-                Log.d("deleteProduct", "${it.body()}")
-            }.onFailure {
-                Log.e("deleteProduct error", "${result.isFailure}")
-            }
+            result.onSuccess { repository.fetchProducts() }
+                .onFailure { Log.e("deleteProduct error", "${result.isFailure}") }
         }
     }
 
