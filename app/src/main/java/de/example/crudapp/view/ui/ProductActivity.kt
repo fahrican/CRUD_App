@@ -3,7 +3,6 @@ package de.example.crudapp.view.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import de.example.crudapp.databinding.ActivityProductBinding
@@ -14,7 +13,7 @@ class ProductActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProductBinding
     private val viewModel: ProductViewModel by viewModels()
-
+    private var swipedProduct: Product? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +21,17 @@ class ProductActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        val swipedProduct: Product? = intent.getParcelableExtra(MainActivity.UPDATE_PRODUCT)
+        checkForProduct()
+    }
+
+    private fun checkForProduct() {
+        swipedProduct = intent.getParcelableExtra(MainActivity.UPDATE_PRODUCT)
         if (swipedProduct != null) {
-            supportActionBar?.title = "Update ${swipedProduct.name}"
+            supportActionBar?.title = "Update ${swipedProduct?.name}"
+            binding.pNameInput.setText(swipedProduct?.name)
+            binding.pDescriptionInput.setText(swipedProduct?.description)
+            binding.pPriceInput.setText(swipedProduct?.price.toString())
+            binding.pQtyInput.setText(swipedProduct?.qty.toString())
         } else {
             supportActionBar?.title = "Create a new product"
         }
@@ -43,7 +50,6 @@ class ProductActivity : AppCompatActivity() {
     }
 
     fun updateProduct(v: View) {
-
     }
 
 }
