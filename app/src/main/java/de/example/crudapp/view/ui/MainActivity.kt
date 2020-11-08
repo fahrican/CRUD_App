@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import de.example.crudapp.R
 import de.example.crudapp.databinding.ActivityMainBinding
+import de.example.crudapp.model.Product
 import de.example.crudapp.view.adapter.ProductAdapter
 import de.example.crudapp.viewmodel.ProductViewModel
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
@@ -142,11 +143,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             ): Boolean = false
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val swipedProduct: Product = productAdapter.currentList[viewHolder.adapterPosition]
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
-                        val productId = productAdapter.currentList[viewHolder.adapterPosition].id
-                        val productName =
-                            productAdapter.currentList[viewHolder.adapterPosition].name ?: ""
+                        val productId = swipedProduct.id
+                        val productName = swipedProduct.name ?: ""
                         productId?.let {
                             val dialog = setUpAlertDialog(productId, productName)
                             dialog.show()
@@ -158,6 +159,10 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                             "Item PATCH request",
                             Toast.LENGTH_SHORT
                         ).show()
+
+                        val intent = Intent(this@MainActivity, ProductActivity::class.java)
+                        intent.putExtra(UPDATE_PRODUCT, swipedProduct)
+                        startActivity(intent)
                     }
                     else -> return
                 }
@@ -242,6 +247,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             }
             .setNegativeButton("No") { _, _ -> }
             .create()
+    }
+
+
+    companion object {
+        const val UPDATE_PRODUCT = "put"
     }
 
 }

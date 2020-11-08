@@ -3,6 +3,7 @@ package de.example.crudapp.view.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import de.example.crudapp.databinding.ActivityProductBinding
@@ -21,6 +22,11 @@ class ProductActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
         supportActionBar?.title = "Create a new product"
+
+        val swipedProduct: Product? = intent.getParcelableExtra(MainActivity.UPDATE_PRODUCT)
+        swipedProduct?.let {
+            Log.v("intent", "${swipedProduct.description}")
+        }
     }
 
     fun createProduct(v: View) {
