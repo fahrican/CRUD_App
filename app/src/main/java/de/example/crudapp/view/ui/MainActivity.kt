@@ -154,12 +154,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                         }
                     }
                     ItemTouchHelper.RIGHT -> {
-                        Toast.makeText(
-                            this@MainActivity,
-                            "Item PATCH request",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
                         val intent = Intent(this@MainActivity, ProductActivity::class.java)
                         intent.putExtra(UPDATE_PRODUCT, swipedProduct)
                         startActivity(intent)
