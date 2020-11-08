@@ -59,6 +59,7 @@ class ProductActivity : AppCompatActivity() {
                 it.qty ?: 0
             )
         }
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
 }
