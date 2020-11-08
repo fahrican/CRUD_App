@@ -32,8 +32,12 @@ class ProductActivity : AppCompatActivity() {
             binding.pDescriptionInput.setText(swipedProduct?.description)
             binding.pPriceInput.setText(swipedProduct?.price.toString())
             binding.pQtyInput.setText(swipedProduct?.qty.toString())
+            binding.btnPostProduct.visibility = View.GONE
+            binding.btnPutProduct.visibility = View.VISIBLE
         } else {
             supportActionBar?.title = "Create a new product"
+            binding.btnPostProduct.visibility = View.VISIBLE
+            binding.btnPutProduct.visibility = View.GONE
         }
     }
 
