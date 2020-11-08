@@ -17,4 +17,12 @@ interface ProductRepository {
 
     suspend fun deleteProduct(id: Int): Response<Unit>
 
+    suspend fun updateProduct(
+        id: Int,
+        name: String,
+        description: String,
+        price: Double,
+        qty: Int
+    ): Response<Product>
+
 }

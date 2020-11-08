@@ -25,12 +25,19 @@ class ProductRepositoryImpl : ProductRepository {
         description: String,
         price: Double,
         qty: Int
-    ): Response<Product> {
-        return flaskApi.postProduct(name, description, price, qty)
-    }
+    ): Response<Product> = flaskApi.postProduct(name, description, price, qty)
+
 
     override suspend fun deleteProduct(id: Int): Response<Unit> {
         return flaskApi.deleteProduct(id)
     }
+
+    override suspend fun updateProduct(
+        id: Int,
+        name: String,
+        description: String,
+        price: Double,
+        qty: Int
+    ): Response<Product> = flaskApi.putProduct(id, name, description, price, qty)
 
 }

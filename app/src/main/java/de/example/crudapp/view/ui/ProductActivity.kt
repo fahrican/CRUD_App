@@ -50,6 +50,15 @@ class ProductActivity : AppCompatActivity() {
     }
 
     fun updateProduct(v: View) {
+        swipedProduct?.let {
+            viewModel.updateProduct(
+                it.id ?: 0,
+                it.name ?: "",
+                it.description ?: "",
+                it.price ?: 0.00,
+                it.qty ?: 0
+            )
+        }
     }
 
 }
