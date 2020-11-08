@@ -42,7 +42,7 @@
 
     <EditText
         android:id="@+id/p_description_input"
-        android:layout_width="300dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:hint="from Mustafa Gemüse Döner"
@@ -95,13 +95,30 @@
 
     <Button
         android:id="@+id/btn_post_product"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:text="post"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/holo_orange_dark"
         android:onClick="createProduct"
+        android:text="post"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/p_qty" />
+
+    <Button
+        android:id="@+id/btn_put_product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:background="@android:color/holo_blue_dark"
+        android:onClick="updateProduct"
+        android:text="put"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btn_post_product" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
