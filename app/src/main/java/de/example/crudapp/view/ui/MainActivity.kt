@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,9 @@ import de.example.crudapp.databinding.ActivityMainBinding
 import de.example.crudapp.view.adapter.ProductAdapter
 import de.example.crudapp.viewmodel.ProductViewModel
 import it.xabaras.android.recyclerview.swipedecorator.RecyclerViewSwipeDecorator
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
@@ -26,7 +30,6 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: ProductViewModel by viewModels()
     private val productAdapter by lazy { ProductAdapter() }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,13 +144,15 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 when (direction) {
                     ItemTouchHelper.LEFT -> {
-                        //show alert dialog
-                        Log.v("onSwiped", "ItemTouchHelper.LEFT ")
-                        val dialog = setUpAlertDialog()
-                        dialog.show()
+                        val productId = productAdapter.currentList[viewHolder.adapterPosition].id
+                        val productName =
+                            productAdapter.currentList[viewHolder.adapterPosition].name ?: ""
+                        productId?.let {
+                            val dialog = setUpAlertDialog(productId, productName)
+                            dialog.show()
+                        }
                     }
                     ItemTouchHelper.RIGHT -> {
-                        Log.v("onSwiped", "ItemTouchHelper.RIGHT ")
                         Toast.makeText(
                             this@MainActivity,
                             "Item PATCH request",
@@ -156,7 +161,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     }
                     else -> return
                 }
-                productAdapter.notifyItemChanged(viewHolder.adapterPosition);
+                productAdapter.notifyItemChanged(viewHolder.adapterPosition)
             }
 
             override fun onChildDraw(
@@ -219,18 +224,21 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         }
     }
 
-    private fun setUpAlertDialog(): AlertDialog {
+    private fun setUpAlertDialog(productPosition: Int, productName: String): AlertDialog {
         return AlertDialog.Builder(this@MainActivity)
             .setTitle("Delete Product")
             .setMessage("Do wou really want to delete this item?")
             .setIcon(R.drawable.ic_delete)
             .setPositiveButton("Yes") { _, _ ->
-                viewModel.deleteProduct(5)
                 Toast.makeText(
                     this@MainActivity,
-                    "Item DELETE request",
-                    Toast.LENGTH_SHORT
+                    "Product: $productName is deleted now.",
+                    Toast.LENGTH_LONG
                 ).show()
+                lifecycleScope.launch(Dispatchers.IO) {
+                    async { viewModel.deleteProduct(productPosition) }.await()
+                    async { viewModel.fetchProducts() }.await()
+                }
             }
             .setNegativeButton("No") { _, _ ->
             }.create()
