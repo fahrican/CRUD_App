@@ -240,8 +240,8 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     async { viewModel.fetchProducts() }.await()
                 }
             }
-            .setNegativeButton("No") { _, _ ->
-            }.create()
+            .setNegativeButton("No") { _, _ -> }
+            .create()
     }
 
 }
