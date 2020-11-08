@@ -225,6 +225,7 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
             .setMessage("Do wou really want to delete this item?")
             .setIcon(R.drawable.ic_delete)
             .setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteProduct(5)
                 Toast.makeText(
                     this@MainActivity,
                     "Item DELETE request",

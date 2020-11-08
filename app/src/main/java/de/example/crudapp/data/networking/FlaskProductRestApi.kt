@@ -20,4 +20,7 @@ interface FlaskProductRestApi {
         @Field("qty") qty: Int
     ): Response<Product>
 
+    @DELETE("product/{id}")
+    suspend fun deleteProduct(@Path("id") id: Int): Response<Unit>
+
 }
