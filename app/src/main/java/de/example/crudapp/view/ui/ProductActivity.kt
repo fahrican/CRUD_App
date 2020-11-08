@@ -21,11 +21,12 @@ class ProductActivity : AppCompatActivity() {
         binding = ActivityProductBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        supportActionBar?.title = "Create a new product"
 
         val swipedProduct: Product? = intent.getParcelableExtra(MainActivity.UPDATE_PRODUCT)
-        swipedProduct?.let {
-            Log.v("intent", "${swipedProduct.description}")
+        if (swipedProduct != null) {
+            supportActionBar?.title = "Update ${swipedProduct.name}"
+        } else {
+            supportActionBar?.title = "Create a new product"
         }
     }
 
@@ -39,6 +40,10 @@ class ProductActivity : AppCompatActivity() {
         )*/
         viewModel.createProduct("test1", "yoyoyo", 9.99, 2)
         startActivity(Intent(this, MainActivity::class.java))
+    }
+
+    fun updateProduct(v: View) {
+
     }
 
 }
