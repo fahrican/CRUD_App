@@ -1,5 +1,6 @@
 package de.example.crudapp.view.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -30,7 +31,8 @@ class ProductActivity : AppCompatActivity() {
             binding.pPriceInput.toString().toDouble(),
             binding.pQtyInput.toString().toInt()
         )*/
-        viewModel.createProduct("a", "a", 4.99, 1)
+        viewModel.createProduct("test1", "yoyoyo", 9.99, 2)
+        startActivity(Intent(this, MainActivity::class.java))
     }
 
 }
