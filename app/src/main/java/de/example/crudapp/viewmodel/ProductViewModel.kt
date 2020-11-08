@@ -47,7 +47,7 @@ class ProductViewModel : ViewModel() {
         }
     }
 
-    fun createProduct(name: String, description: String, price: Double, qty: Int) {
+    fun createProduct(name: String, description: String, price: Float, qty: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = runCatching { repository.createProduct(name, description, price, qty) }
             result.onSuccess {
@@ -67,7 +67,7 @@ class ProductViewModel : ViewModel() {
         }
     }
 
-    fun updateProduct(id: Int, name: String, description: String, price: Double, qty: Int) {
+    fun updateProduct(id: Int, name: String, description: String, price: Float, qty: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = runCatching { repository.updateProduct(id, name, description, price, qty) }
             result.onSuccess {

@@ -49,7 +49,7 @@ class ProductActivity : AppCompatActivity() {
             binding.pPriceInput.toString().toDouble(),
             binding.pQtyInput.toString().toInt()
         )*/
-        viewModel.createProduct("test1", "yoyoyo", 9.99, 2)
+        viewModel.createProduct("test1", "yoyoyo", 9.99f, 2)
         startActivity(Intent(this, MainActivity::class.java))
     }
 
@@ -59,7 +59,7 @@ class ProductActivity : AppCompatActivity() {
                 it.id ?: 0,
                 it.name ?: "",
                 it.description ?: "",
-                it.price ?: 0.00,
+                it.price ?: 0.00f,
                 it.qty ?: 0
             )
         }

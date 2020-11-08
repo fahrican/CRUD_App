@@ -11,7 +11,7 @@ interface ProductRepository {
     suspend fun createProduct(
         name: String,
         description: String,
-        price: Double,
+        price: Float,
         qty: Int
     ): Response<Product>
 
@@ -21,7 +21,7 @@ interface ProductRepository {
         id: Int,
         name: String,
         description: String,
-        price: Double,
+        price: Float,
         qty: Int
     ): Response<Product>
 

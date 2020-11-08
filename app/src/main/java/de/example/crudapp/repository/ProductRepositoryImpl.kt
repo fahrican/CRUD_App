@@ -23,7 +23,7 @@ class ProductRepositoryImpl : ProductRepository {
     override suspend fun createProduct(
         name: String,
         description: String,
-        price: Double,
+        price: Float,
         qty: Int
     ): Response<Product> = flaskApi.postProduct(name, description, price, qty)
 
@@ -36,7 +36,7 @@ class ProductRepositoryImpl : ProductRepository {
         id: Int,
         name: String,
         description: String,
-        price: Double,
+        price: Float,
         qty: Int
     ): Response<Product> = flaskApi.putProduct(id, name, description, price, qty)
 

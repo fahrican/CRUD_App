@@ -8,7 +8,7 @@ data class Product(
     val id: Int?,
     val description: String?,
     val name: String?,
-    val price: Double?,
+    val price: Float?,
     val qty: Int?
 ) : Parcelable {
 
@@ -16,7 +16,7 @@ data class Product(
         parcel.readValue(Int::class.java.classLoader) as? Int,
         parcel.readString(),
         parcel.readString(),
-        parcel.readValue(Double::class.java.classLoader) as? Double,
+        parcel.readValue(Double::class.java.classLoader) as? Float,
         parcel.readValue(Int::class.java.classLoader) as? Int
     )
 
