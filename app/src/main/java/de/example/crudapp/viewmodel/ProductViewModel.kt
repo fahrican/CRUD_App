@@ -62,7 +62,7 @@ class ProductViewModel : ViewModel() {
     fun deleteProduct(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = runCatching { repository.deleteProduct(id) }
-            result.onSuccess { repository.fetchProducts() }
+            result.onSuccess {  }
                 .onFailure { Log.e("deleteProduct error", "${result.isFailure}") }
         }
     }
